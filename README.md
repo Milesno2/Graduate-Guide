@@ -168,7 +168,7 @@ lib/
 This project includes lightweight backend endpoints using Netlify Functions.
 
 - Endpoints (after deploy or `netlify dev`):
-  - `/.netlify/functions/health` (GET)
+  - `/.netlify/functions/check` (GET)
   - `/.netlify/functions/contact` (POST)
 
 #### Local development
@@ -188,7 +188,7 @@ Netlify dev will proxy requests to functions at `http://localhost:8888/.netlify/
 #### Test with curl
 
 ```bash
-curl -s http://localhost:8888/.netlify/functions/health | jq
+curl -s http://localhost:8888/.netlify/functions/check | jq
 
 curl -s -X POST \
   -H 'Content-Type: application/json' \

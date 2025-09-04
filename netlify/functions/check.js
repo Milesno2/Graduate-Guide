@@ -1,4 +1,4 @@
-exports.handler = async function handler(event, context) {
+exports.handler = async function handler(event) {
   if (event.httpMethod === 'OPTIONS') {
     return {
       statusCode: 204,
@@ -11,13 +11,21 @@ exports.handler = async function handler(event, context) {
     };
   }
 
+  if (event.httpMethod !== 'GET') {
+    return {
+      statusCode: 405,
+      headers: { 'Access-Control-Allow-Origin': '*' },
+      body: JSON.stringify({ error: 'Method Not Allowed' }),
+    };
+  }
+
   return {
     statusCode: 200,
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
     },
-    body: JSON.stringify({ status: 'ok', timestamp: new Date().toISOString() }),
+    body: JSON.stringify({ ok: true, timestamp: new Date().toISOString() }),
   };
 }
 
