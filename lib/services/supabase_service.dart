@@ -26,6 +26,7 @@ class SupabaseService {
     required String university,
     required String graduationYear,
     required String course,
+    String? profession,
     String? profileImage,
   }) async {
     try {
@@ -39,6 +40,7 @@ class SupabaseService {
           'university': university,
           'graduation_year': graduationYear,
           'course': course,
+          if (profession != null) 'profession': profession,
         },
       );
 
@@ -52,6 +54,7 @@ class SupabaseService {
           'university': university,
           'graduation_year': graduationYear,
           'course': course,
+          'profession': profession,
           'profile_image_url': profileImage,
           'created_at': DateTime.now().toIso8601String(),
           'updated_at': DateTime.now().toIso8601String(),

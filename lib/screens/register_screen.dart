@@ -617,6 +617,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       university: 'N/A', // no school field now
       graduationYear: _selectedDob?.year.toString() ?? 'N/A',
       course: _selectedProfession ?? 'N/A',
+      profession: _selectedProfession,
     );
 
     if (!mounted) return;

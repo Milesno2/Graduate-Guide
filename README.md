@@ -230,6 +230,7 @@ profiles (
   university TEXT,
   graduation_year TEXT,
   course TEXT,
+  profession TEXT,
   avatar_url TEXT,
   created_at TIMESTAMP,
   updated_at TIMESTAMP
