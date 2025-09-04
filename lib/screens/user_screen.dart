@@ -201,7 +201,7 @@ class _UserScreenState extends State<UserScreen> {
                 child: Column(
                   children: [
                     _buildInfoRow('Gender', userData['gender'] ?? ''),
-                    _buildInfoRow('Course of Study', userData['course'] ?? ''),
+                    _buildInfoRow('Profession', userData['course'] ?? ''),
                     _buildInfoRow('Birth date', userData['birthDate'] ?? ''),
                     _buildInfoRow('NIN', userData['nin'] ?? ''),
                     _buildInfoRow('Mobile No.', userData['mobile'] ?? ''),

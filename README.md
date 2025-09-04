@@ -163,6 +163,62 @@ lib/
 - **Storage**: Profile image uploads
 - **Real-time**: Live data updates
 
+### Netlify Functions (Serverless Backend)
+
+This project includes lightweight backend endpoints using Netlify Functions.
+
+- Endpoints (after deploy or `netlify dev`):
+  - `/.netlify/functions/check` (GET)
+  - `/.netlify/functions/contact` (POST)
+
+#### Local development
+
+1. Install Netlify CLI (one-time):
+   ```bash
+   npm install -g netlify-cli
+   ```
+2. Run local dev server (serves Flutter web build and functions):
+   ```bash
+   flutter build web --release
+   netlify dev
+   ```
+
+Netlify dev will proxy requests to functions at `http://localhost:8888/.netlify/functions/*`.
+
+#### Test with curl
+
+```bash
+curl -s http://localhost:8888/.netlify/functions/check | jq
+
+curl -s -X POST \
+  -H 'Content-Type: application/json' \
+  -d '{"name":"Alice","email":"alice@example.com","message":"Hi"}' \
+  http://localhost:8888/.netlify/functions/contact | jq
+```
+
+#### Flutter usage example
+
+```dart
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
+Future<void> sendContact(String name, String email, String message) async {
+  final uri = Uri.parse('/.netlify/functions/contact');
+  final res = await http.post(
+    uri,
+    headers: {'Content-Type': 'application/json'},
+    body: jsonEncode({'name': name, 'email': email, 'message': message}),
+  );
+  if (res.statusCode != 200) {
+    throw Exception('Contact failed: \'${res.statusCode}\'');
+  }
+}
+```
+
+Notes:
+- CORS is enabled globally for functions via `netlify.toml` and per-function handlers.
+- Functions live in `netlify/functions/` and are bundled with esbuild on deploy.
+
 ### Database Schema
 ```sql
 profiles (
@@ -174,6 +230,7 @@ profiles (
   university TEXT,
   graduation_year TEXT,
   course TEXT,
+  profession TEXT,
   avatar_url TEXT,
   created_at TIMESTAMP,
   updated_at TIMESTAMP
